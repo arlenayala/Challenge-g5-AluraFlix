@@ -6,6 +6,7 @@ import TextInput from './CampoTexto';
 import Button from './Button';
 import ListaCategorias from './ListaCategorias';
 import { useCategoriaContext } from './CategoriasContext';
+import RegistradoConExito from './RegistradoConExito';
 
 const FormContainer = styled.div`
   background-color: #00000099;
@@ -63,6 +64,8 @@ const Form = ({agregarVideoToHomePage}) => {
   const { categorias, agregarCategoria } = useCategoriaContext(); // Obtener categorías y agregarCategoria del contexto
   const [videoList, setVideoList] = useState([]); // Estado para almacenar la lista de videos guardados
   const [newVideos, setNewVideos] = useState([]);
+  const [mostrarComponente, setMostrarComponente] = useState(false);
+
 
  
 
@@ -109,6 +112,8 @@ const Form = ({agregarVideoToHomePage}) => {
     
     agregarCategoria(selectedCategory); // Llama a la función para agregar la categoría en lugar de setCategorias
     setNewVideos([...newVideos, nuevoVideo]);
+
+    setMostrarComponente(true);
     
   };
 
@@ -117,7 +122,8 @@ const Form = ({agregarVideoToHomePage}) => {
     setLinkVideo('');
     setLinkImagen('');
     setDescription('');
-    setSelectedCategory(''); // Limpia la categoría seleccionada
+    setSelectedCategory(''); 
+    setMostrarComponente("");
   };
 
   const goToCategory = () => {
@@ -213,6 +219,7 @@ const Form = ({agregarVideoToHomePage}) => {
         <Button type="reset" onClick={handleReset}>Limpiar</Button>
         <ButtonNuevaCategoria type="submit" onClick={goToCategory}>Nueva categoria</ButtonNuevaCategoria>
       </form>
+      {mostrarComponente && <RegistradoConExito/>}
     </FormContainer>
   );
 };
